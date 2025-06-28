@@ -18,27 +18,27 @@ class ColorPaletteWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 16),
-            Wrap(
+            const Wrap(
               spacing: 8,
               runSpacing: 8,
               children: [
-                const _ColorChip(
+                _ColorChip(
                   color: TrayTrailColors.champagnePink,
                   name: 'Primary - Champagne Pink',
                 ),
-                const _ColorChip(
+                _ColorChip(
                   color: TrayTrailColors.tomato,
                   name: 'Secondary - Tomato',
                 ),
-                const _ColorChip(
+                _ColorChip(
                   color: TrayTrailColors.mint,
                   name: 'Tertiary - Mint',
                 ),
-                const _ColorChip(
+                _ColorChip(
                   color: TrayTrailColors.paynesGray,
                   name: 'Neutral - Payne\'s Gray',
                 ),
-                const _ColorChip(
+                _ColorChip(
                   color: TrayTrailColors.white,
                   name: 'Surface - White',
                 ),
