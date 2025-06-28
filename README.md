@@ -28,6 +28,20 @@ TrayTrail is an elegant food tracking and menu management application that helps
 
 > ℹ️ iOS support is planned but currently unavailable due to hardware limitations. The app builds successfully for iOS, but I cannot test or sign it without access to an Apple Developer Account and test device along with valid provisioning. If you'd like to help test or contribute an iOS build, feel free to reach out.
 
+### 📷 Screenshots
+
+<table>
+  <tr>
+    <!-- Left column: vertical phone screenshot -->
+    <td>
+      <img src="Branding/Screenies/v1_phone.png" alt="Phone UI" width="200"/><br><p align="center">Phone UI</p>
+    </td>
+    <td>
+      <img src="Branding/Screenies/v1_tablet.png" alt="Tablet UI" width="400"/><br><p align="center">Tablet UI</p><br/>
+      <img src="Branding/Screenies/v1_android_x86.png" alt="Android-x86 UI" width="400"/><br><p align="center">Android Desktop UI <br>(doesn't exist in real world scenarios)</p>
+    </td>
+  </tr>
+</table>
 
 ## 🎯 Roadmap
 
@@ -59,22 +73,6 @@ The full license text and exceptions are detailed in [LICENSE.md](LICENSE.md).
 - **Font Awesome** and **Material Symbols** for iconography
 - **Epilogue**, **Roboto**, and **Zen Loop** font families
 ---
-
-## 📷 Screenshots
-
-<table>
-  <tr>
-    <!-- Left column: vertical phone screenshot -->
-    <td>
-      <img src="Branding/Screenies/v1_phone.png" alt="Phone UI" width="200"/><br><p align="center">Phone UI</p>
-    </td>
-    <td>
-      <img src="Branding/Screenies/v1_tablet.png" alt="Tablet UI" width="400"/><br><p align="center">Tablet UI</p><br/>
-      <img src="Branding/Screenies/v1_android_x86.png" alt="Android-x86 UI" width="400"/><br><p align="center">Android Desktop UI <br>(doesn't exist in real world scenarios)</p>
-    </td>
-  </tr>
-</table>
-
 
 <div align="center">
   <em>Made with Flutter</em>
