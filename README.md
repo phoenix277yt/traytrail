@@ -34,7 +34,7 @@ TrayTrail is an elegant food tracking and menu management application that helps
   <tr>
     <!-- Left column: vertical phone screenshot -->
     <td>
-      <img src="Branding/Screenies/v1_phone.png" alt="Phone UI" width="200"/><br><p align="center">Phone UI</p>
+      <img src="Branding/Screenies/v1_phone.png" alt="Phone UI" width="300"/><br><p align="center">Phone UI</p>
     </td>
     <td>
       <img src="Branding/Screenies/v1_tablet.png" alt="Tablet UI" width="400"/><br><p align="center">Tablet UI</p><br/>
