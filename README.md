@@ -1,4 +1,6 @@
-# 🍴 TrayTrail
+<p align="center">
+  <img src="Branding/readme.svg" width="400" alt="Logo">
+</p>
 
 > A beautiful, modern food tracking and menu management application built with Flutter and Material Design 3.
 
