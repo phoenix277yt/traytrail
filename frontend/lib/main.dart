@@ -501,12 +501,6 @@ class _MenuViewState extends State<MenuView> with TickerProviderStateMixin {
       appBar: AppBar(
         title: const Text('Today\'s Menu'),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.calendar_today),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -653,6 +647,14 @@ class _PollsViewState extends State<PollsView> with TickerProviderStateMixin {
   late AnimationController _staggerController;
   final List<Animation<Offset>> _slideAnimations = [];
   final List<Animation<double>> _fadeAnimations = [];
+  
+  // State for current poll voting
+  String? _selectedPollOption;
+  bool _hasVoted = false;
+  
+  // State for tomorrow's preferences
+  final Set<String> _selectedBreakfastItems = {};
+  final Set<String> _selectedLunchItems = {};
 
   @override
   void initState() {
@@ -861,14 +863,34 @@ class _PollsViewState extends State<PollsView> with TickerProviderStateMixin {
     Color iconColor,
     bool isLeading,
   ) {
-    return _AnimatedPollOption(
-      name: name,
-      description: description,
-      percentage: percentage,
-      icon: icon,
-      backgroundColor: backgroundColor,
-      iconColor: iconColor,
-      isLeading: isLeading,
+    final bool isSelected = _selectedPollOption == name;
+    final bool canVote = !_hasVoted;
+    
+    return GestureDetector(
+      onTap: canVote ? () {
+        setState(() {
+          _selectedPollOption = name;
+          _hasVoted = true;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Voted for $name! Thank you for participating.'),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      } : null,
+      child: _AnimatedPollOption(
+        name: name,
+        description: description,
+        percentage: percentage,
+        icon: icon,
+        backgroundColor: backgroundColor,
+        iconColor: iconColor,
+        isLeading: isLeading,
+        isSelected: isSelected,
+        hasVoted: _hasVoted,
+      ),
     );
   }
 
@@ -935,9 +957,9 @@ class _PollsViewState extends State<PollsView> with TickerProviderStateMixin {
               'Breakfast',
               Icons.wb_sunny,
               [
-                _buildPreferenceOption(context, 'Poha', 'Current: 45 interested', 45, false),
-                _buildPreferenceOption(context, 'Upma', 'Current: 32 interested', 32, false),
-                _buildPreferenceOption(context, 'Idli Sambar', 'Current: 28 interested', 28, false),
+                _buildPreferenceOption(context, 'Poha', 'Current: 45 interested', 45, _selectedBreakfastItems.contains('Poha'), 'breakfast'),
+                _buildPreferenceOption(context, 'Upma', 'Current: 32 interested', 32, _selectedBreakfastItems.contains('Upma'), 'breakfast'),
+                _buildPreferenceOption(context, 'Idli Sambar', 'Current: 28 interested', 28, _selectedBreakfastItems.contains('Idli Sambar'), 'breakfast'),
               ],
             ),
             
@@ -949,10 +971,10 @@ class _PollsViewState extends State<PollsView> with TickerProviderStateMixin {
               'Lunch',
               Icons.wb_sunny_outlined,
               [
-                _buildPreferenceOption(context, 'Rajma Chawal', 'Current: 89 interested', 89, true),
-                _buildPreferenceOption(context, 'Chole Bhature', 'Current: 67 interested', 67, false),
-                _buildPreferenceOption(context, 'Dal Tadka & Roti', 'Current: 54 interested', 54, false),
-                _buildPreferenceOption(context, 'Biryani', 'Current: 43 interested', 43, false),
+                _buildPreferenceOption(context, 'Rajma Chawal', 'Current: 89 interested', 89, _selectedLunchItems.contains('Rajma Chawal'), 'lunch'),
+                _buildPreferenceOption(context, 'Chole Bhature', 'Current: 67 interested', 67, _selectedLunchItems.contains('Chole Bhature'), 'lunch'),
+                _buildPreferenceOption(context, 'Dal Tadka & Roti', 'Current: 54 interested', 54, _selectedLunchItems.contains('Dal Tadka & Roti'), 'lunch'),
+                _buildPreferenceOption(context, 'Biryani', 'Current: 43 interested', 43, _selectedLunchItems.contains('Biryani'), 'lunch'),
               ],
             ),
             
@@ -961,7 +983,19 @@ class _PollsViewState extends State<PollsView> with TickerProviderStateMixin {
               children: [
                 Expanded(
                   child: OutlinedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        _selectedBreakfastItems.clear();
+                        _selectedLunchItems.clear();
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text('All preferences cleared!'),
+                          backgroundColor: Theme.of(context).colorScheme.tertiary,
+                          duration: const Duration(seconds: 1),
+                        ),
+                      );
+                    },
                     icon: const Icon(Icons.refresh),
                     label: const Text('Reset Selections'),
                     style: OutlinedButton.styleFrom(
@@ -973,7 +1007,16 @@ class _PollsViewState extends State<PollsView> with TickerProviderStateMixin {
                 const SizedBox(width: 12),
                 Expanded(
                   child: FilledButton.icon(
-                    onPressed: () {},
+                    onPressed: (_selectedBreakfastItems.isNotEmpty || _selectedLunchItems.isNotEmpty) ? () {
+                      final totalSelected = _selectedBreakfastItems.length + _selectedLunchItems.length;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Successfully submitted $totalSelected preferences! Thank you for helping us plan better meals.'),
+                          backgroundColor: Theme.of(context).colorScheme.primary,
+                          duration: const Duration(seconds: 3),
+                        ),
+                      );
+                    } : null,
                     icon: const Icon(Icons.send),
                     label: const Text('Submit Preferences'),
                     style: FilledButton.styleFrom(
@@ -1017,7 +1060,7 @@ class _PollsViewState extends State<PollsView> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildPreferenceOption(BuildContext context, String name, String subtitle, int count, bool isSelected) {
+  Widget _buildPreferenceOption(BuildContext context, String name, String subtitle, int count, bool isSelected, String mealType) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
@@ -1079,13 +1122,44 @@ class _PollsViewState extends State<PollsView> with TickerProviderStateMixin {
               )
             else
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    if (mealType == 'breakfast') {
+                      _selectedBreakfastItems.add(name);
+                    } else {
+                      _selectedLunchItems.add(name);
+                    }
+                  });
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Added $name to your preferences!'),
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      duration: const Duration(seconds: 1),
+                    ),
+                  );
+                },
                 icon: const Icon(Icons.add_circle_outline),
                 tooltip: 'Add to preferences',
               ),
           ],
         ),
-        onTap: () {},
+        onTap: () {
+          setState(() {
+            if (mealType == 'breakfast') {
+              if (isSelected) {
+                _selectedBreakfastItems.remove(name);
+              } else {
+                _selectedBreakfastItems.add(name);
+              }
+            } else {
+              if (isSelected) {
+                _selectedLunchItems.remove(name);
+              } else {
+                _selectedLunchItems.add(name);
+              }
+            }
+          });
+        },
         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       ),
     );
@@ -1909,6 +1983,8 @@ class _AnimatedPollOption extends StatefulWidget {
   final Color backgroundColor;
   final Color iconColor;
   final bool isLeading;
+  final bool isSelected;
+  final bool hasVoted;
 
   const _AnimatedPollOption({
     required this.name,
@@ -1918,6 +1994,8 @@ class _AnimatedPollOption extends StatefulWidget {
     required this.backgroundColor,
     required this.iconColor,
     required this.isLeading,
+    this.isSelected = false,
+    this.hasVoted = false,
   });
 
   @override
@@ -1988,15 +2066,18 @@ class _AnimatedPollOptionState extends State<_AnimatedPollOption>
         animation: Listenable.merge([_scaleAnimation, _progressAnimation]),
         builder: (context, child) {
           return Transform.scale(
-            scale: _scaleAnimation.value,
-            child: Container(
-              decoration: BoxDecoration(
-                color: widget.backgroundColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: widget.backgroundColor.withValues(alpha: 0.3),
-                  width: widget.isLeading ? 2 : 1,
-                ),
+            scale: _scaleAnimation.value,        child: Container(
+          decoration: BoxDecoration(
+            color: widget.isSelected 
+              ? widget.backgroundColor.withValues(alpha: 0.3) 
+              : widget.backgroundColor.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: widget.isSelected 
+                ? widget.backgroundColor 
+                : widget.backgroundColor.withValues(alpha: 0.3),
+              width: widget.isSelected || widget.isLeading ? 2 : 1,
+            ),
                 boxShadow: _isHovered
                     ? [
                         BoxShadow(
@@ -2040,29 +2121,41 @@ class _AnimatedPollOptionState extends State<_AnimatedPollOption>
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    widget.name,
-                                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                      fontWeight: widget.isLeading ? FontWeight.bold : FontWeight.normal,
-                                    ),
-                                  ),
-                                  if (widget.isLeading) ...[
-                                    const SizedBox(width: 8),
-                                    AnimatedRotation(
-                                      turns: _isHovered ? 0.1 : 0.0,
-                                      duration: const Duration(milliseconds: 200),
-                                      child: const Icon(
-                                        Icons.emoji_events,
-                                        color: Colors.amber,
-                                        size: 20,
-                                      ),
-                                    ),
-                                  ],
-                                ],
+                            children: [                      Row(
+                        children: [
+                          Text(
+                            widget.name,
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              fontWeight: widget.isLeading || widget.isSelected ? FontWeight.bold : FontWeight.normal,
+                              color: widget.isSelected ? widget.backgroundColor : null,
+                            ),
+                          ),
+                          if (widget.isLeading) ...[
+                            const SizedBox(width: 8),
+                            AnimatedRotation(
+                              turns: _isHovered ? 0.1 : 0.0,
+                              duration: const Duration(milliseconds: 200),
+                              child: const Icon(
+                                Icons.emoji_events,
+                                color: Colors.amber,
+                                size: 20,
                               ),
+                            ),
+                          ],
+                          if (widget.isSelected) ...[
+                            const SizedBox(width: 8),
+                            AnimatedScale(
+                              scale: _isHovered ? 1.1 : 1.0,
+                              duration: const Duration(milliseconds: 200),
+                              child: Icon(
+                                Icons.check_circle,
+                                color: widget.backgroundColor,
+                                size: 20,
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
                               Text(
                                 widget.description,
                                 style: Theme.of(context).textTheme.bodySmall,
@@ -2070,11 +2163,42 @@ class _AnimatedPollOptionState extends State<_AnimatedPollOption>
                             ],
                           ),
                         ),
-                        const SizedBox(width: 12),
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 200),
-                          child: FilledButton.icon(
-                            onPressed: () {},
+                        const SizedBox(width: 12),                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      child: widget.hasVoted 
+                        ? Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            decoration: BoxDecoration(
+                              color: widget.isSelected 
+                                ? widget.backgroundColor
+                                : Theme.of(context).colorScheme.surfaceContainerHighest,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  widget.isSelected ? Icons.how_to_vote : Icons.bar_chart,
+                                  size: 18,
+                                  color: widget.isSelected 
+                                    ? widget.iconColor
+                                    : Theme.of(context).colorScheme.onSurfaceVariant,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  '${widget.percentage}%',
+                                  style: TextStyle(
+                                    color: widget.isSelected 
+                                      ? widget.iconColor
+                                      : Theme.of(context).colorScheme.onSurfaceVariant,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : FilledButton.icon(
+                            onPressed: () {}, // This will be handled by the GestureDetector in _buildPollOption
                             icon: const Icon(Icons.thumb_up, size: 18),
                             label: Text('${widget.percentage}%'),
                             style: FilledButton.styleFrom(
@@ -2084,7 +2208,7 @@ class _AnimatedPollOptionState extends State<_AnimatedPollOption>
                               elevation: _isHovered ? 4 : 0,
                             ),
                           ),
-                        ),
+                    ),
                       ],
                     ),
                     const SizedBox(height: 12),
