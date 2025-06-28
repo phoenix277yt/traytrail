@@ -4,7 +4,7 @@ Pragyan School is hereby granted limited permission to use and deploy this softw
 
 # END USER LICENSE (App Users Only)
 
-This license applies only to end users accessing the app through official app stores.
+This license applies only to end users accessing the app through official app stores and GitHub releases.
 
 You are granted a limited, non-commercial, non-transferable, non-exclusive license to use this software solely for accessing Pragyan School's services, provided via official channels.
 
