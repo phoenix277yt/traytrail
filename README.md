@@ -2,7 +2,7 @@
   <img src="Branding/readme.svg" width="400" alt="Logo">
 </p>
 
-> A beautiful, modern food tracking and menu management application built with Flutter and Material Design 3.
+A beautiful, modern food tracking and menu management application built with Flutter and Material Design 3.
 
 [![Flutter](https://img.shields.io/badge/Flutter-3.8.1-02569B?logo=flutter)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.8.1-0175C2?logo=dart)](https://dart.dev)
