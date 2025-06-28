@@ -1,0 +1,127 @@
+# TrayTrail Project .gitignore
+
+# OS and System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.metadata
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Backend specific
+backend/node_modules/
+backend/dist/
+backend/build/
+backend/.env
+backend/coverage/
+backend/*.sqlite
+backend/*.db
+
+# Frontend specific (Flutter)
+frontend/build/
+frontend/.dart_tool/
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/.pub-cache/
+frontend/.pub/
+frontend/ios/Pods/
+frontend/ios/.symlinks/
+frontend/ios/Flutter/Flutter.framework
+frontend/ios/Flutter/Flutter.podspec
+frontend/ios/Flutter/Generated.xcconfig
+frontend/ios/Flutter/app.flx
+frontend/ios/Flutter/app.zip
+frontend/ios/Flutter/flutter_assets/
+frontend/ios/ServiceDefinitions.json
+frontend/android/.gradle/
+frontend/android/captures/
+frontend/android/gradlew
+frontend/android/gradlew.bat
+frontend/android/local.properties
+frontend/android/**/GeneratedPluginRegistrant.java
+frontend/android/key.properties
+frontend/.metadata
+
+# Web specific
+frontend/web/build/
+
+# Native assets and compiled files
+frontend/native_assets/
+frontend/**/*.so
+frontend/**/*.dylib
+frontend/**/*.dll
+
+# Cache files
+frontend/**/.last_build_id
+frontend/**/doc/api/
+frontend/**/*.cache.dill.track.dill
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Documentation generated files
+docs/build/
+docs/_build/
+
+# Design files (optional - uncomment if you don't want to track these)
+# Branding/*.afdesign
+# Branding/*.sketch
+# Branding/*.fig
+
+# Backup files
+*.backup
+*.bak
+*.old
+
+# Archive files (unless needed)
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+
+# Security files
+*.pem
+*.key
+*.cert
+*.crt

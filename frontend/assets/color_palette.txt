@@ -1,0 +1,33 @@
+- Tailwind
+
+{ 'white': { DEFAULT: '#ffffff', 100: '#333333', 200: '#666666', 300: '#999999', 400: '#cccccc', 500: '#ffffff', 600: '#ffffff', 700: '#ffffff', 800: '#ffffff', 900: '#ffffff' }, 'champagne_pink': { DEFAULT: '#f7e1d7', 100: '#4e230f', 200: '#9b461f', 300: '#d96f3e', 400: '#e8a98b', 500: '#f7e1d7', 600: '#f9e8e0', 700: '#faeee8', 800: '#fcf4f0', 900: '#fdf9f7' }, 'mint': { DEFAULT: '#3ab795', 100: '#0c241e', 200: '#17493c', 300: '#236d59', 400: '#2e9277', 500: '#3ab795', 600: '#5bcbad', 700: '#84d8c2', 800: '#ade5d6', 900: '#d6f2eb' }, 'payne's_gray': { DEFAULT: '#495867', 100: '#0f1215', 200: '#1e242a', 300: '#2c363f', 400: '#3b4754', 500: '#495867', 600: '#667a8f', 700: '#8b9cac', 800: '#b1bdc8', 900: '#d8dee3' }, 'tomato': { DEFAULT: '#fe7252', 100: '#430d00', 200: '#861901', 300: '#c92601', 400: '#fe3b0f', 500: '#fe7252', 600: '#fe8e75', 700: '#feaa97', 800: '#ffc7ba', 900: '#ffe3dc' } }
+
+- CSV
+
+ffffff,f7e1d7,3ab795,495867,fe7252
+
+- With #
+
+#ffffff, #f7e1d7, #3ab795, #495867, #fe7252
+
+- Array
+
+["ffffff","f7e1d7","3ab795","495867","fe7252"]
+
+- Object
+
+{"White":"ffffff","Champagne pink":"f7e1d7","Mint":"3ab795","Payne's gray":"495867","Tomato":"fe7252"}
+
+- Extended Array
+
+[{"name":"White","hex":"ffffff","rgb":[255,255,255],"cmyk":[0,0,0,0],"hsb":[0,0,100],"hsl":[0,0,100],"lab":[100,0,0]},{"name":"Champagne pink","hex":"f7e1d7","rgb":[247,225,215],"cmyk":[0,9,13,3],"hsb":[19,13,97],"hsl":[19,67,91],"lab":[91,6,8]},{"name":"Mint","hex":"3ab795","rgb":[58,183,149],"cmyk":[68,0,19,28],"hsb":[164,68,72],"hsl":[164,52,47],"lab":[67,-42,7]},{"name":"Payne's gray","hex":"495867","rgb":[73,88,103],"cmyk":[29,15,0,60],"hsb":[210,29,40],"hsl":[210,17,35],"lab":[37,-2,-11]},{"name":"Tomato","hex":"fe7252","rgb":[254,114,82],"cmyk":[0,55,68,0],"hsb":[11,68,100],"hsl":[11,99,66],"lab":[65,51,43]}]
+
+- XML
+
+<palette>
+  <color name="White" hex="ffffff" r="255" g="255" b="255" />
+  <color name="Champagne pink" hex="f7e1d7" r="247" g="225" b="215" />
+  <color name="Mint" hex="3ab795" r="58" g="183" b="149" />
+  <color name="Payne's gray" hex="495867" r="73" g="88" b="103" />
+  <color name="Tomato" hex="fe7252" r="254" g="114" b="82" />
+</palette>
