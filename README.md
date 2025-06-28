@@ -26,10 +26,6 @@ TrayTrail is an elegant food tracking and menu management application that helps
 
 - ✅ **Android** (API 21+)
 - ✅ **iOS** (iOS 12+)
-- ✅ **Web** (Modern browsers)
-- ✅ **macOS** (macOS 10.14+)
-- ✅ **Windows** (Windows 10+)
-- ✅ **Linux** (GTK 3.0+)
 
 ## 🎯 Roadmap
 
