@@ -48,8 +48,9 @@ TrayTrail is an elegant food tracking and menu management application that helps
 - [ ] Analytics dashboard
 
 ## 📄 License
-
-This project is licensed under the PolyForm Strict License 1.0.0, view [LICENSE.md](LICENSE.md) for details.
+This project uses a derivative license based on the PolyForm Strict License 1.0.0, with additional exceptions for authorized usage.
+<br>
+The full license text and exceptions are detailed in [LICENSE.md](LICENSE.md).
 
 ## 🙏 Acknowledgments
 
