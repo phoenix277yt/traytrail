@@ -15,17 +15,19 @@ TrayTrail is an elegant food tracking and menu management application that helps
 ## ✨ Features
 
 - **🎨 Material Design 3**: Modern, adaptive UI with dynamic theming
-- **🌙 Dark/Light Mode**: Automatic theme switching with system preferences
 - **🏠 Home Dashboard**: Quick actions and recent activity overview
 - **🍽️ Menu Management**: Browse and manage food menus
 - **🗳️ Polls & Voting**: Democratic food selection system
-- **📱 Responsive Design**: Works seamlessly on phones, tablets, and desktop
+- **📱 Responsive Design**: Works seamlessly on phones, tablets, and android based desktops.
 - **🎯 Clean Architecture**: Feature-based organization for maintainable code
 
 ## 📱 Platform Support
 
 - ✅ **Android** (API 21+)
-- ✅ **iOS** (iOS 12+)
+- ❌ **iOS** (iOS 12+ planned, but currently not supported)
+
+> ℹ️ iOS support is planned but currently unavailable due to hardware limitations. The app builds successfully for iOS, but I cannot test or sign it without access to an Apple Developer Account and test device along with valid provisioning. If you'd like to help test or contribute an iOS build, feel free to reach out.
+
 
 ## 🎯 Roadmap
 
