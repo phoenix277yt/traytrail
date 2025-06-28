@@ -2,7 +2,7 @@
 
 Pragyan School is hereby granted limited permission to use and deploy this software internally for educational and administrative purposes only. This exception does not extend to modification, redistribution, or any commercial entity affiliated with the school. All other rights remain reserved under the Polyform Strict License 1.0.0.
 
-# END USER LICENSE (App Users Only)
+## END USER LICENSE (App Users Only)
 
 This license applies only to end users accessing the app through official app stores and GitHub releases.
 
