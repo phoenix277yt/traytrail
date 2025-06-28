@@ -1,3 +1,9 @@
+# EXCEPTION NOTICE
+
+Pragyan School is hereby granted limited permission to use and deploy this software internally for educational and administrative purposes only. This exception does not extend to modification, redistribution, or any commercial entity affiliated with the school. All other rights remain reserved under the Polyform Strict License 1.0.0.
+
+---
+
 # PolyForm Strict License 1.0.0
 
 <https://polyformproject.org/licenses/strict/1.0.0>
