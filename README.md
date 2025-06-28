@@ -37,8 +37,8 @@ TrayTrail is an elegant food tracking and menu management application that helps
       <img src="Branding/Screenies/v1_phone.png" alt="Phone UI" width="300"/><br><p align="center">Phone UI</p>
     </td>
     <td>
-      <img src="Branding/Screenies/v1_tablet.png" alt="Tablet UI" width="400"/><br><p align="center">Tablet UI</p><br/>
-      <img src="Branding/Screenies/v1_android_x86.png" alt="Android-x86 UI" width="400"/><br><p align="center">Android Desktop UI <br>(doesn't exist in real world scenarios)</p>
+      <img src="Branding/Screenies/v1_tablet.png" alt="Tablet UI" width="500"/><br><p align="center">Tablet UI</p><br/>
+      <img src="Branding/Screenies/v1_android_x86.png" alt="Android-x86 UI" width="500"/><br><p align="center">Android Desktop UI <br>(doesn't exist in real world scenarios)</p>
     </td>
   </tr>
 </table>
