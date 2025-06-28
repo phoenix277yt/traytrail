@@ -705,13 +705,6 @@ class _PollsViewState extends State<PollsView> with TickerProviderStateMixin {
       appBar: AppBar(
         title: const Text('Menu Polls'),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.history),
-            onPressed: () {},
-            tooltip: 'Poll History',
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -1421,12 +1414,6 @@ class _AnalyticsViewState extends State<AnalyticsView> with TickerProviderStateM
       appBar: AppBar(
         title: const Text('Analytics'),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.download),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
