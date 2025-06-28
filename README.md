@@ -60,6 +60,21 @@ The full license text and exceptions are detailed in [LICENSE.md](LICENSE.md).
 - **Epilogue**, **Roboto**, and **Zen Loop** font families
 ---
 
+## 📷 Screenshots
+<table>
+  <tr>
+    <!-- Left column: vertical phone screenshot -->
+    <td>
+      <img src="Branding/screenies/v1_phone.png" alt="Phone UI" width="200"/>
+    </td
+    <td>
+      <img src="screenshots/v1_tablet.png" alt="Tablet UI" width="400"/><br/>
+      <img src="screenshots/v1_android_x86.png" alt="Android-x86 UI" width="400"/>
+    </td>
+  </tr>
+</table>
+
+
 <div align="center">
   <em>Made with Flutter</em>
   <br><br>
