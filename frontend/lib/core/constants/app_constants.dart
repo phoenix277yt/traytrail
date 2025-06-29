@@ -11,6 +11,12 @@ class AppConstants {
   static const Duration pageTransitionDuration = Duration(milliseconds: 400);
   static const Duration cardAnimationDuration = Duration(milliseconds: 800);
   static const Duration quickAnimationDuration = Duration(milliseconds: 200);
+  static const Duration hoverAnimationDuration = Duration(milliseconds: 200);
+  static const Duration progressAnimationDuration = Duration(milliseconds: 1500);
+  
+  // Animation Values
+  static const double hoverScaleFactor = 1.02;
+  static const int progressAnimationDelay = 300;
   
   // UI Constants
   static const double cardBorderRadius = 12.0;

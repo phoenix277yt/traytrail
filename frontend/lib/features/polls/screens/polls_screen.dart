@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_constants.dart';
+import '../../../core/state/providers/poll_provider.dart';
+import '../../../core/services/food_tags_service.dart';
+import '../../../shared/widgets/dietary_badges.dart';
 import '../widgets/poll_option_card.dart';
 
-class PollsScreen extends StatefulWidget {
+class PollsScreen extends ConsumerStatefulWidget {
   const PollsScreen({super.key});
 
   @override
-  State<PollsScreen> createState() => _PollsScreenState();
+  ConsumerState<PollsScreen> createState() => _PollsScreenState();
 }
 
-class _PollsScreenState extends State<PollsScreen> with TickerProviderStateMixin {
+class _PollsScreenState extends ConsumerState<PollsScreen> with TickerProviderStateMixin {
   late AnimationController _staggerController;
   final List<Animation<Offset>> _slideAnimations = [];
   final List<Animation<double>> _fadeAnimations = [];
   
-  // State for current poll voting
-  String? _selectedPollOption;
-  bool _hasVoted = false;
-  
-  // State for tomorrow's preferences
+  // State for tomorrow's preferences  
   final Set<String> _selectedBreakfastItems = {};
   final Set<String> _selectedLunchItems = {};
 
@@ -77,35 +77,43 @@ class _PollsScreenState extends State<PollsScreen> with TickerProviderStateMixin
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SlideTransition(
-              position: _slideAnimations[0],
-              child: FadeTransition(
-                opacity: _fadeAnimations[0],
-                child: _buildTomorrowPreferences(context),
+            RepaintBoundary(
+              child: SlideTransition(
+                position: _slideAnimations[0],
+                child: FadeTransition(
+                  opacity: _fadeAnimations[0],
+                  child: _buildTomorrowPreferences(context),
+                ),
               ),
             ),
             const SizedBox(height: AppConstants.largePadding),
-            SlideTransition(
-              position: _slideAnimations[1],
-              child: FadeTransition(
-                opacity: _fadeAnimations[1],
-                child: _buildCurrentPoll(context),
+            RepaintBoundary(
+              child: SlideTransition(
+                position: _slideAnimations[1],
+                child: FadeTransition(
+                  opacity: _fadeAnimations[1],
+                  child: _buildCurrentPoll(context),
+                ),
               ),
             ),
             const SizedBox(height: AppConstants.largePadding),
-            SlideTransition(
-              position: _slideAnimations[2],
-              child: FadeTransition(
-                opacity: _fadeAnimations[2],
-                child: _buildPollStats(context),
+            RepaintBoundary(
+              child: SlideTransition(
+                position: _slideAnimations[2],
+                child: FadeTransition(
+                  opacity: _fadeAnimations[2],
+                  child: _buildPollStats(context),
+                ),
               ),
             ),
             const SizedBox(height: AppConstants.largePadding),
-            SlideTransition(
-              position: _slideAnimations[3],
-              child: FadeTransition(
-                opacity: _fadeAnimations[3],
-                child: _buildPreviousWinners(context),
+            RepaintBoundary(
+              child: SlideTransition(
+                position: _slideAnimations[3],
+                child: FadeTransition(
+                  opacity: _fadeAnimations[3],
+                  child: _buildPreviousWinners(context),
+                ),
               ),
             ),
           ],
@@ -156,63 +164,41 @@ class _PollsScreenState extends State<PollsScreen> with TickerProviderStateMixin
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
-            PollOptionCard(
-              name: 'Pav Bhaji',
-              description: 'Spiced vegetable curry with bread rolls',
-              percentage: 65,
-              icon: Icons.local_dining,
-              backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-              iconColor: Theme.of(context).colorScheme.onSecondaryContainer,
-              isLeading: true,
-              isSelected: _selectedPollOption == 'Pav Bhaji',
-              hasVoted: _hasVoted,
-              onTap: () => _handlePollVote('Pav Bhaji'),
-            ),
-            const SizedBox(height: 16),
-            PollOptionCard(
-              name: 'Masala Dosa',
-              description: 'Crispy rice crepe with potato filling',
-              percentage: 45,
-              icon: Icons.breakfast_dining,
-              backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-              iconColor: Theme.of(context).colorScheme.onSecondaryContainer,
-              isLeading: false,
-              isSelected: _selectedPollOption == 'Masala Dosa',
-              hasVoted: _hasVoted,
-              onTap: () => _handlePollVote('Masala Dosa'),
-            ),
-            const SizedBox(height: 16),
-            PollOptionCard(
-              name: 'Aloo Paratha',
-              description: 'Stuffed flatbread with spiced potatoes',
-              percentage: 38,
-              icon: Icons.rice_bowl,
-              backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
-              iconColor: Theme.of(context).colorScheme.onTertiaryContainer,
-              isLeading: false,
-              isSelected: _selectedPollOption == 'Aloo Paratha',
-              hasVoted: _hasVoted,
-              onTap: () => _handlePollVote('Aloo Paratha'),
-            ),
-            const SizedBox(height: 16),
-            PollOptionCard(
-              name: 'Idli Sambar',
-              description: 'Steamed rice cakes with lentil curry',
-              percentage: 28,
-              icon: Icons.breakfast_dining,
-              backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-              iconColor: Theme.of(context).colorScheme.onSecondaryContainer,
-              isLeading: false,
-              isSelected: _selectedPollOption == 'Idli Sambar',
-              hasVoted: _hasVoted,
-              onTap: () => _handlePollVote('Idli Sambar'),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Total Votes: 342',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+            Consumer(
+              builder: (context, ref, child) {
+                final pollState = ref.watch(pollProvider);
+                final currentPoll = pollState.currentPoll;
+                
+                if (currentPoll == null) {
+                  return const Text('No active polls available');
+                }
+                
+                return Column(
+                  children: [
+                    ...currentPoll.options.map((option) => 
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: PollOptionCard(
+                          pollOption: option,
+                          icon: _getIconFromName(option.iconName),
+                          backgroundColor: _parseColor(option.backgroundColor),
+                          iconColor: _parseColor(option.iconColor),
+                          isSelected: pollState.selectedPollOptionId == option.id,
+                          hasVoted: pollState.hasVoted,
+                          onTap: () => _handlePollVote(option.id),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Total Votes: ${currentPoll.totalVotes}',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
           ],
         ),
@@ -304,6 +290,48 @@ class _PollsScreenState extends State<PollsScreen> with TickerProviderStateMixin
               ],
             ),
             
+            const SizedBox(height: 16),
+            
+            // Submission status message
+            Consumer(
+              builder: (context, ref, child) {
+                final canSubmitToday = ref.watch(canSubmitPreferencesTodayProvider);
+                final lastSubmission = ref.watch(lastPreferencesSubmissionProvider);
+                
+                if (!canSubmitToday && lastSubmission != null) {
+                  return Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.check_circle_outline,
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            'You\'ve already submitted your preferences today. You can submit new preferences tomorrow!',
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
+            
             const SizedBox(height: 20),
             Row(
               children: [
@@ -338,29 +366,76 @@ class _PollsScreenState extends State<PollsScreen> with TickerProviderStateMixin
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: FilledButton.icon(
-                    onPressed: (_selectedBreakfastItems.isNotEmpty || _selectedLunchItems.isNotEmpty) ? () {
-                      final totalSelected = _selectedBreakfastItems.length + _selectedLunchItems.length;
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Successfully submitted $totalSelected preferences! Thank you for helping us plan better meals.',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onPrimary,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          backgroundColor: Theme.of(context).colorScheme.primary,
-                          duration: const Duration(seconds: 3),
+                  child: Consumer(
+                    builder: (context, ref, child) {
+                      final canSubmitToday = ref.watch(canSubmitPreferencesTodayProvider);
+                      final hasSelections = _selectedBreakfastItems.isNotEmpty || _selectedLunchItems.isNotEmpty;
+                      final isLoading = ref.watch(isPollLoadingProvider);
+                      
+                      return FilledButton.icon(
+                        onPressed: (hasSelections && canSubmitToday && !isLoading) ? () async {
+                          final scaffoldMessenger = ScaffoldMessenger.of(context);
+                          final theme = Theme.of(context);
+                          final totalSelected = _selectedBreakfastItems.length + _selectedLunchItems.length;
+                          
+                          try {
+                            await ref.read(pollProvider.notifier).submitPreferences();
+                            
+                            if (mounted) {
+                              scaffoldMessenger.showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Successfully submitted $totalSelected preferences! Thank you for helping us plan better meals.',
+                                    style: TextStyle(
+                                      color: theme.colorScheme.onPrimary,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  backgroundColor: theme.colorScheme.primary,
+                                  duration: const Duration(seconds: 3),
+                                ),
+                              );
+                            }
+                          } catch (e) {
+                            if (mounted) {
+                              scaffoldMessenger.showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Failed to submit preferences. Please try again.',
+                                    style: TextStyle(
+                                      color: theme.colorScheme.onError,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  backgroundColor: theme.colorScheme.error,
+                                  duration: const Duration(seconds: 2),
+                                ),
+                              );
+                            }
+                          }
+                        } : null,
+                        icon: isLoading 
+                          ? const SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : const Icon(Icons.send),
+                        label: Text(
+                          !canSubmitToday 
+                            ? 'Submitted Today'
+                            : 'Submit Preferences'
+                        ),
+                        style: FilledButton.styleFrom(
+                          backgroundColor: canSubmitToday 
+                            ? Theme.of(context).colorScheme.secondary
+                            : Theme.of(context).colorScheme.surfaceContainerHighest,
+                          foregroundColor: canSubmitToday
+                            ? Theme.of(context).colorScheme.onSecondary
+                            : Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                       );
-                    } : null,
-                    icon: const Icon(Icons.send),
-                    label: const Text('Submit Preferences'),
-                    style: FilledButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                      foregroundColor: Theme.of(context).colorScheme.onSecondary,
-                    ),
+                    },
                   ),
                 ),
               ],
@@ -436,9 +511,19 @@ class _PollsScreenState extends State<PollsScreen> with TickerProviderStateMixin
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           ),
         ),
-        subtitle: Text(
-          subtitle,
-          style: Theme.of(context).textTheme.bodySmall,
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              subtitle,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            const SizedBox(height: 4),
+            DietaryBadges(
+              tags: FoodTagsService.getTagsForFood(name),
+              padding: EdgeInsets.zero,
+            ),
+          ],
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
@@ -674,16 +759,15 @@ class _PollsScreenState extends State<PollsScreen> with TickerProviderStateMixin
     );
   }
 
-  void _handlePollVote(String option) {
-    if (!_hasVoted) {
-      setState(() {
-        _selectedPollOption = option;
-        _hasVoted = true;
-      });
+  void _handlePollVote(String optionId) {
+    // Use the poll provider to vote
+    final pollState = ref.read(pollProvider);
+    if (!pollState.hasVoted) {
+      ref.read(pollProvider.notifier).voteForOption(optionId);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            'Voted for $option! Thank you for participating.',
+            'Vote recorded! Thank you for participating.',
             style: TextStyle(
               color: Theme.of(context).colorScheme.onPrimary,
               fontWeight: FontWeight.w500,
@@ -694,5 +778,22 @@ class _PollsScreenState extends State<PollsScreen> with TickerProviderStateMixin
         ),
       );
     }
+  }
+
+  IconData _getIconFromName(String iconName) {
+    switch (iconName) {
+      case 'rice_bowl':
+        return Icons.rice_bowl;
+      case 'breakfast_dining':
+        return Icons.breakfast_dining;
+      case 'local_dining':
+        return Icons.local_dining;
+      default:
+        return Icons.restaurant;
+    }
+  }
+
+  Color _parseColor(String colorString) {
+    return Color(int.parse(colorString.substring(1, 7), radix: 16) + 0xFF000000);
   }
 }

@@ -97,43 +97,47 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> with TickerProviderSt
           children: [
             const SizedBox(height: 20),
             // Animated meal predictions overview
-            ScaleTransition(
-              scale: _headerScaleAnimation,
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      AnimatedBuilder(
-                        animation: _chartRotationAnimation,
-                        builder: (context, child) {
-                          return Transform.rotate(
-                            angle: _chartRotationAnimation.value * 0.1,
-                            child: Icon(
-                              Icons.trending_up,
-                              size: 48,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'Meal Predictions',
-                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          fontWeight: FontWeight.bold,
+            RepaintBoundary(
+              child: ScaleTransition(
+                scale: _headerScaleAnimation,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        RepaintBoundary(
+                          child: AnimatedBuilder(
+                            animation: _chartRotationAnimation,
+                            builder: (context, child) {
+                              return Transform.rotate(
+                                angle: _chartRotationAnimation.value * 0.1,
+                                child: Icon(
+                                  Icons.trending_up,
+                                  size: 48,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'AI-powered insights for better kitchen planning',
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        const SizedBox(height: 16),
+                        Text(
+                          'Meal Predictions',
+                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+                        Text(
+                          'AI-powered insights for better kitchen planning',
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -141,32 +145,35 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> with TickerProviderSt
             const SizedBox(height: AppConstants.largePadding),
             
             // Animated statistics cards
-            SlideTransition(
-              position: _cardsSlideAnimation,
-              child: FadeTransition(
-                opacity: _cardsFadeAnimation,
-                child: Row(
-                  children: [
+            RepaintBoundary(
+              child: SlideTransition(
+                position: _cardsSlideAnimation,
+                child: FadeTransition(
+                  opacity: _cardsFadeAnimation,
+                  child: Row(
+                    children: [
                     Expanded(
                       child: Card(
                         child: Padding(
                           padding: const EdgeInsets.all(AppConstants.defaultPadding),
                           child: Column(
                             children: [
-                              AnimatedBuilder(
-                                animation: _chartRotationAnimation,
-                                builder: (context, child) {
-                                  return Transform.scale(
-                                    scale: 0.8 + (_chartRotationAnimation.value * 0.2),
-                                    child: Text(
-                                      '142',
-                                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                        color: Theme.of(context).colorScheme.primary,
-                                        fontWeight: FontWeight.bold,
+                              RepaintBoundary(
+                                child: AnimatedBuilder(
+                                  animation: _chartRotationAnimation,
+                                  builder: (context, child) {
+                                    return Transform.scale(
+                                      scale: 0.8 + (_chartRotationAnimation.value * 0.2),
+                                      child: Text(
+                                        '142',
+                                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                          color: Theme.of(context).colorScheme.primary,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
+                                    );
+                                  },
+                                ),
                               ),
                               const SizedBox(height: 4),
                               Text(
@@ -186,20 +193,22 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> with TickerProviderSt
                           padding: const EdgeInsets.all(AppConstants.defaultPadding),
                           child: Column(
                             children: [
-                              AnimatedBuilder(
-                                animation: _chartRotationAnimation,
-                                builder: (context, child) {
-                                  return Transform.scale(
-                                    scale: 0.8 + (_chartRotationAnimation.value * 0.2),
-                                    child: Text(
-                                      '4.2',
-                                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                        color: Theme.of(context).colorScheme.secondary,
-                                        fontWeight: FontWeight.bold,
+                              RepaintBoundary(
+                                child: AnimatedBuilder(
+                                  animation: _chartRotationAnimation,
+                                  builder: (context, child) {
+                                    return Transform.scale(
+                                      scale: 0.8 + (_chartRotationAnimation.value * 0.2),
+                                      child: Text(
+                                        '4.2',
+                                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                          color: Theme.of(context).colorScheme.secondary,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
+                                    );
+                                  },
+                                ),
                               ),
                               const SizedBox(height: 4),
                               Text(
@@ -216,18 +225,20 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> with TickerProviderSt
                 ),
               ),
             ),
+            ),
             const SizedBox(height: AppConstants.largePadding),
             
             // Animated popular items
-            SlideTransition(
-              position: _cardsSlideAnimation,
-              child: FadeTransition(
-                opacity: _cardsFadeAnimation,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppConstants.defaultPadding),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+            RepaintBoundary(
+              child: SlideTransition(
+                position: _cardsSlideAnimation,
+                child: FadeTransition(
+                  opacity: _cardsFadeAnimation,
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppConstants.defaultPadding),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Popular Today',
@@ -248,18 +259,20 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> with TickerProviderSt
                 ),
               ),
             ),
+            ),
             const SizedBox(height: AppConstants.largePadding),
             
             // Animated feedback summary
-            SlideTransition(
-              position: _cardsSlideAnimation,
-              child: FadeTransition(
-                opacity: _cardsFadeAnimation,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppConstants.defaultPadding),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+            RepaintBoundary(
+              child: SlideTransition(
+                position: _cardsSlideAnimation,
+                child: FadeTransition(
+                  opacity: _cardsFadeAnimation,
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppConstants.defaultPadding),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Recent Feedback',
@@ -294,6 +307,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> with TickerProviderSt
                   ),
                 ),
               ),
+            ),
             ),
           ],
         ),

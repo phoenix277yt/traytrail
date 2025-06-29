@@ -78,12 +78,14 @@ class _FeedbackScreenState extends State<FeedbackScreen> with TickerProviderStat
           ],
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          _buildForumTab(),
-          _buildSubmitTab(),
-        ],
+      body: RepaintBoundary(
+        child: TabBarView(
+          controller: _tabController,
+          children: [
+            _buildForumTab(),
+            _buildSubmitTab(),
+          ],
+        ),
       ),
     );
   }
@@ -94,27 +96,33 @@ class _FeedbackScreenState extends State<FeedbackScreen> with TickerProviderStat
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SlideTransition(
-            position: _slideAnimations[0],
-            child: FadeTransition(
-              opacity: _fadeAnimations[0],
-              child: _buildStatsOverview(),
+          RepaintBoundary(
+            child: SlideTransition(
+              position: _slideAnimations[0],
+              child: FadeTransition(
+                opacity: _fadeAnimations[0],
+                child: _buildStatsOverview(),
+              ),
             ),
           ),
           const SizedBox(height: AppConstants.largePadding),
-          SlideTransition(
-            position: _slideAnimations[1],
-            child: FadeTransition(
-              opacity: _fadeAnimations[1],
-              child: _buildCategoryFilter(),
+          RepaintBoundary(
+            child: SlideTransition(
+              position: _slideAnimations[1],
+              child: FadeTransition(
+                opacity: _fadeAnimations[1],
+                child: _buildCategoryFilter(),
+              ),
             ),
           ),
           const SizedBox(height: AppConstants.largePadding),
-          SlideTransition(
-            position: _slideAnimations[2],
-            child: FadeTransition(
-              opacity: _fadeAnimations[2],
-              child: _buildRecentFeedback(),
+          RepaintBoundary(
+            child: SlideTransition(
+              position: _slideAnimations[2],
+              child: FadeTransition(
+                opacity: _fadeAnimations[2],
+                child: _buildRecentFeedback(),
+              ),
             ),
           ),
         ],
@@ -125,11 +133,13 @@ class _FeedbackScreenState extends State<FeedbackScreen> with TickerProviderStat
   Widget _buildSubmitTab() {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppConstants.defaultPadding),
-      child: SlideTransition(
-        position: _slideAnimations[0],
-        child: FadeTransition(
-          opacity: _fadeAnimations[0],
-          child: const FeedbackForm(),
+      child: RepaintBoundary(
+        child: SlideTransition(
+          position: _slideAnimations[0],
+          child: FadeTransition(
+            opacity: _fadeAnimations[0],
+            child: const FeedbackForm(),
+          ),
         ),
       ),
     );

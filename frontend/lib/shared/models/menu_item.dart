@@ -7,7 +7,7 @@ class MenuItem {
   final int calories;
   final double price;
   final bool isAvailable;
-  final List<String> allergens;
+  final List<String> tags; // informational tags like 'vegetarian', 'healthy', 'protein-rich', etc.
   final String iconName;
   final DateTime availableFrom;
   final DateTime availableTo;
@@ -20,7 +20,7 @@ class MenuItem {
     required this.calories,
     required this.price,
     required this.isAvailable,
-    required this.allergens,
+    this.tags = const [],
     required this.iconName,
     required this.availableFrom,
     required this.availableTo,
@@ -34,7 +34,7 @@ class MenuItem {
     int? calories,
     double? price,
     bool? isAvailable,
-    List<String>? allergens,
+    List<String>? tags,
     String? iconName,
     DateTime? availableFrom,
     DateTime? availableTo,
@@ -47,7 +47,7 @@ class MenuItem {
       calories: calories ?? this.calories,
       price: price ?? this.price,
       isAvailable: isAvailable ?? this.isAvailable,
-      allergens: allergens ?? this.allergens,
+      tags: tags ?? this.tags,
       iconName: iconName ?? this.iconName,
       availableFrom: availableFrom ?? this.availableFrom,
       availableTo: availableTo ?? this.availableTo,
@@ -63,7 +63,7 @@ class MenuItem {
       'calories': calories,
       'price': price,
       'isAvailable': isAvailable,
-      'allergens': allergens,
+      'tags': tags,
       'iconName': iconName,
       'availableFrom': availableFrom.toIso8601String(),
       'availableTo': availableTo.toIso8601String(),
@@ -79,7 +79,7 @@ class MenuItem {
       calories: json['calories'] as int,
       price: json['price'] as double,
       isAvailable: json['isAvailable'] as bool,
-      allergens: List<String>.from(json['allergens'] as List),
+      tags: List<String>.from(json['tags'] ?? []),
       iconName: json['iconName'] as String,
       availableFrom: DateTime.parse(json['availableFrom'] as String),
       availableTo: DateTime.parse(json['availableTo'] as String),

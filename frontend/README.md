@@ -30,6 +30,23 @@ A beautiful Material 3 Flutter application with expressive theming.
 ### Prerequisites
 
 - Flutter SDK (latest stable version)
+- Android Studio with Android SDK
+- **Android NDK 27.0.12077973** (configured in build.gradle.kts)
+- iOS development tools (for iOS builds)
+
+### Android Configuration
+
+This project is configured to use Android NDK 27.0.12077973 to ensure compatibility with all dependencies, particularly `shared_preferences_android`. The NDK version is specified in `/android/app/build.gradle.kts`:
+
+```kotlin
+android {
+    ndkVersion = "27.0.12077973"
+}
+```
+
+### Installation
+
+- Flutter SDK (latest stable version)
 - Dart SDK
 - Chrome/Edge browser (for web development)
 - Android Studio/VS Code with Flutter extensions
