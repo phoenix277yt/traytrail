@@ -4,7 +4,7 @@
 
 <p align="center"><sub>A beautiful, modern food tracking and menu management application built with Flutter and Material Design 3.</sub></p>
 
-[![Flutter](https://img.shields.io/badge/Flutter-3.8.1-02569B?logo=flutter)](https://flutter.dev)
+[![Flutter](https://img.shields.io/badge/Flutter-3.3.2-02569B?logo=flutter)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.8.1-0175C2?logo=dart)](https://dart.dev)
 [![Material Design 3](https://img.shields.io/badge/Material%20Design-3-757575?logo=material-design)](https://m3.material.io/)
 
