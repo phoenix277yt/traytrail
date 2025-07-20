@@ -1,20 +1,58 @@
-# EXCEPTION NOTICE
+# LICENSE NOTICE
 
-This license does not apply to any and all third-party products/assets used in the app that have their own license terms included with them in their respective storage locations.
+This software is licensed under the [PolyForm Strict License 1.0.0](https://polyformproject.org/licenses/strict/1.0.0), with additional usage permissions for specific parties and purposes, as detailed below.
 
-Pragyan School is hereby granted limited permission to use and deploy this software internally for educational and administrative purposes only. This exception does not extend to modification, redistribution, or any commercial entity affiliated with the school. All other rights remain reserved under the Polyform Strict License 1.0.0.
+---
+
+## THIRD-PARTY ASSETS
+
+This license notice does not apply to any third-party products, dependencies, or assets bundled with the software. Each such asset remains subject to its own license terms as provided in their respective directories or metadata files.
+
+---
+
+## SCHOOL USAGE EXCEPTION (PRAGYAN SCHOOL ONLY)
+
+Pragyan School is granted limited permission to use and deploy this software internally for educational and administrative purposes only. This includes installation on school-managed devices, servers, or networks for student/staff access.
+
+This exception **does not** grant the right to:
+
+- Modify or create derivative works
+- Redistribute the software or make it publicly accessible
+- Use the software for or by any commercial entities affiliated with the school
+
+All other rights remain reserved under the PolyForm Strict License 1.0.0.
+
+---
 
 ## END USER LICENSE (App Users Only)
 
-This license applies only to end users accessing the app through official app stores and GitHub releases.
+This section applies to users accessing the app via:
 
-You are granted a limited, non-commercial, non-transferable, non-exclusive license to use this software solely for accessing Pragyan School's services, provided via official channels.
+- Official app stores (e.g., Google Play, Apple App Store)
+- Pragyan School’s verified GitHub releases
+- Publicly available **demo/test builds** published by Daksh Shrivastav (the developer)
 
-No right to copy, reverse-engineer, modify, or redistribute is granted.
+You are granted a **limited, non-exclusive, non-transferable, and non-commercial license** to use this software for the sole purpose of viewing the app demo (case 3) or accessing services provided by Pragyan School via authorized releases (case 1 and 2).
 
-Source code remains protected under the Polyform Strict License.
+You may **not**:
+
+- Modify, reverse-engineer, decompile, or extract source code
+- Redistribute, fork, or rehost the application or its components
+- Use the app’s contents or codebase in any derivative or competing work
+
+The source code remains protected under the PolyForm Strict License 1.0.0 and is **not free software** in the open-source sense.
 
 ---
+
+## EXPORT COMPLIANCE
+
+You agree to comply with all applicable local and international laws, including export control and sanctions laws, in connection with your use of this software.
+
+---
+
+## POLYFORM STRICT LICENSE 1.0.0
+
+The remainder of this document reproduces the full [PolyForm Strict License 1.0.0](https://polyformproject.org/licenses/strict/1.0.0) as required
 
 # PolyForm Strict License 1.0.0
 
