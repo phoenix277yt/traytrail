@@ -43,6 +43,12 @@ TrayTrail is an elegant food tracking and menu management application that helps
   </tr>
 </table>
 
+<a>A video tour of the app!<a>
+
+https://github.com/user-attachments/assets/2d059a31-46b7-41ed-8e0f-17311976e84f
+
+
+
 ## 🎯 Roadmap
 
 ### Phase 1: Core Features ✨
