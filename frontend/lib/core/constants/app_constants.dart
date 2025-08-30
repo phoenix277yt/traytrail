@@ -25,6 +25,10 @@ class AppConstants {
   static const double largePadding = 24.0;
   static const double smallPadding = 8.0;
   
+  // Backend Integration
+  static const int dataRefreshIntervalMinutes = 30;
+  static const Duration apiTimeout = Duration(seconds: 30);
+  
   // Asset Paths
   static const String logoPath = 'assets/images/logo.svg';
   static const String colorPalettePath = 'assets/color_palette.txt';
