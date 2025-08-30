@@ -125,3 +125,8 @@ docs/_build/
 *.key
 *.cert
 *.crt
+
+# Development tools
+flutter/
+flutter_linux_*.tar.xz
+dart-sdk/
