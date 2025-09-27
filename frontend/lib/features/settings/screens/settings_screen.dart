@@ -224,7 +224,7 @@ class SettingsScreen extends ConsumerWidget {
       value: value,
       onChanged: enabled ? onChanged : null,
       secondary: Icon(icon),
-      activeColor: TrayTrailColors.tomatoSaturated,
+      activeThumbColor: TrayTrailColors.tomatoSaturated,
       activeTrackColor: TrayTrailColors.tomatoSaturated.withValues(alpha: 0.5),
     );
   }

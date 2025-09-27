@@ -97,8 +97,8 @@ class _AppWrapperState extends ConsumerState<AppWrapper> {
     }
 
     return _showOnboarding
-        ? RepaintBoundary(
-            child: const OnboardingScreen(),
+        ? const RepaintBoundary(
+            child: OnboardingScreen(),
           )
         : const RepaintBoundary(
             child: MainPage(),

@@ -23,7 +23,7 @@ class OnboardingScreen extends ConsumerWidget {
       showSkipButton: true,
       skip: const Text(
         'Skip',
-        style: const TextStyle(
+        style: TextStyle(
           color: TrayTrailColors.tomatoSaturated,
           fontWeight: FontWeight.w600,
           fontSize: 16,
